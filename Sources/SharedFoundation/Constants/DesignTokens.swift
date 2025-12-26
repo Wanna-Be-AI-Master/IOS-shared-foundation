@@ -1,5 +1,11 @@
 import SwiftUI
 
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
+
 // MARK: - DesignTokens
 
 /// デザイントークン
@@ -309,15 +315,25 @@ extension Color {
 
     /// HEXコードに変換
     public var hexString: String {
+        #if canImport(UIKit)
         guard let components = UIColor(self).cgColor.components else {
             return "#000000"
         }
+        #elseif canImport(AppKit)
+        guard let components = NSColor(self).cgColor.components else {
+            return "#000000"
+        }
+        #else
+        return "#000000"
+        #endif
 
+        #if canImport(UIKit) || canImport(AppKit)
         let r = Int(components[0] * 255)
         let g = Int(components[1] * 255)
         let b = Int(components[2] * 255)
 
         return String(format: "#%02X%02X%02X", r, g, b)
+        #endif
     }
 }
 
