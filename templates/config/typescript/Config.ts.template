@@ -1,0 +1,185 @@
+/**
+ * アプリケーション設定テンプレート
+ * {{APP_NAME}} - {{APP_TAGLINE}}
+ *
+ * 使用方法:
+ * 1. このファイルをコピーして constants/Config.ts として配置
+ * 2. {{PLACEHOLDER}} を実際の値に置換
+ * 3. アプリ固有の設定を追加
+ */
+
+// ============================================
+// アプリ情報
+// ============================================
+
+export const APP_INFO = {
+  // アプリ名
+  name: '{{APP_NAME_JA}}',
+  nameEn: '{{APP_NAME_EN}}',
+
+  // タグライン（キャッチコピー）
+  tagline: '{{APP_TAGLINE}}',
+
+  // 説明文
+  description: '{{APP_DESCRIPTION}}',
+
+  // バージョン
+  version: '1.0.0',
+
+  // Bundle ID（iOS）/ Package Name（Android）
+  bundleId: '{{BUNDLE_ID}}',
+} as const;
+
+// ============================================
+// Supabase設定
+// ============================================
+
+export const SUPABASE_CONFIG = {
+  url: process.env.EXPO_PUBLIC_SUPABASE_URL || '',
+  anonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '',
+} as const;
+
+// ============================================
+// RevenueCat設定（課金機能）
+// ============================================
+
+export const REVENUECAT_CONFIG = {
+  apiKey: process.env.EXPO_PUBLIC_REVENUECAT_API_KEY || '',
+
+  // 商品ID
+  products: {
+    monthlyPremium: '{{BUNDLE_ID}}.premium.monthly',
+    yearlyPremium: '{{BUNDLE_ID}}.premium.yearly',
+  },
+
+  // エンタイトルメント
+  entitlements: {
+    premium: 'premium',
+  },
+} as const;
+
+// ============================================
+// 制限値
+// ============================================
+
+export const LIMITS = {
+  // 無料プラン
+  free: {
+    // {{FREE_PLAN_LIMITS}}
+    maxItems: 10,
+  },
+
+  // プレミアムプラン
+  premium: {
+    // {{PREMIUM_PLAN_LIMITS}}
+    maxItems: -1, // 無制限
+  },
+
+  // 共通制限
+  maxDisplayNameLength: 20,
+  maxMemoLength: 500,
+} as const;
+
+// ============================================
+// 価格設定
+// ============================================
+
+export const PRICING = {
+  monthlyPremium: 380, // 円
+  yearlyPremium: 2980, // 円
+} as const;
+
+// ============================================
+// ローカルストレージキー
+// ============================================
+
+export const STORAGE_KEYS = {
+  // オンボーディング完了フラグ
+  hasCompletedOnboarding: 'hasCompletedOnboarding',
+
+  // カラースキーム
+  colorScheme: 'colorScheme',
+
+  // 通知設定
+  notificationSettings: 'notificationSettings',
+
+  // 最終同期時刻
+  lastSyncTime: 'lastSyncTime',
+
+  // {{ADDITIONAL_STORAGE_KEYS}}
+} as const;
+
+// ============================================
+// 通知設定デフォルト
+// ============================================
+
+export const DEFAULT_NOTIFICATION_SETTINGS = {
+  enabled: true,
+  reminderTime: '21:00',
+} as const;
+
+// ============================================
+// URL
+// ============================================
+
+export const URLS = {
+  privacyPolicy: 'https://{{DOMAIN}}/privacy',
+  termsOfService: 'https://{{DOMAIN}}/terms',
+  support: 'https://{{DOMAIN}}/support',
+  appStore: 'https://apps.apple.com/app/{{APP_NAME_EN}}/id{{APP_STORE_ID}}',
+} as const;
+
+// ============================================
+// タイムゾーン
+// ============================================
+
+export const TIMEZONE = 'Asia/Tokyo';
+
+// ============================================
+// 機能フラグ
+// ============================================
+
+export const FEATURES = {
+  // プレミアム機能
+  premium: process.env.EXPO_PUBLIC_FEATURE_PREMIUM === 'true',
+
+  // プッシュ通知
+  pushNotifications: process.env.EXPO_PUBLIC_FEATURE_PUSH_NOTIFICATIONS === 'true',
+
+  // 分析
+  analytics: process.env.EXPO_PUBLIC_FEATURE_ANALYTICS === 'true',
+} as const;
+
+// ============================================
+// デフォルトエクスポート
+// ============================================
+
+export const Config = {
+  app: APP_INFO,
+  supabase: SUPABASE_CONFIG,
+  revenueCat: REVENUECAT_CONFIG,
+  limits: LIMITS,
+  pricing: PRICING,
+  storageKeys: STORAGE_KEYS,
+  defaultNotificationSettings: DEFAULT_NOTIFICATION_SETTINGS,
+  urls: URLS,
+  timezone: TIMEZONE,
+  features: FEATURES,
+} as const;
+
+export default Config;
+
+// ============================================
+// 型エクスポート
+// ============================================
+
+export type AppInfo = typeof APP_INFO;
+export type SupabaseConfig = typeof SUPABASE_CONFIG;
+export type RevenueCatConfig = typeof REVENUECAT_CONFIG;
+export type Limits = typeof LIMITS;
+export type Pricing = typeof PRICING;
+export type StorageKeys = typeof STORAGE_KEYS;
+export type NotificationSettings = typeof DEFAULT_NOTIFICATION_SETTINGS;
+export type Urls = typeof URLS;
+export type Features = typeof FEATURES;
+export type ConfigType = typeof Config;

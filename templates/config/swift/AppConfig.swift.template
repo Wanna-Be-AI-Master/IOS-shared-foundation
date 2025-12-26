@@ -1,0 +1,231 @@
+import Foundation
+
+// MARK: - {{APP_NAME}} アプリケーション設定
+
+/// アプリケーション設定
+/// 環境変数やビルド設定から読み込む
+///
+/// 使用方法:
+/// 1. このファイルをコピーして Core/Constants/AppConfig.swift として配置
+/// 2. {{PLACEHOLDER}} を実際の値に置換
+/// 3. アプリ固有の設定を追加
+enum AppConfig {
+
+    // MARK: - アプリ情報
+
+    /// アプリ名
+    static let appName = "{{APP_NAME_JA}}"
+
+    /// アプリ名（英語）
+    static let appNameEn = "{{APP_NAME_EN}}"
+
+    /// タグライン
+    static let tagline = "{{APP_TAGLINE}}"
+
+    /// 説明文
+    static let appDescription = "{{APP_DESCRIPTION}}"
+
+    /// バージョン
+    static var version: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+    }
+
+    /// ビルド番号
+    static var buildNumber: String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+    }
+
+    /// Bundle ID
+    static var bundleId: String {
+        Bundle.main.bundleIdentifier ?? "{{BUNDLE_ID}}"
+    }
+
+    // MARK: - 環境
+
+    /// 現在の環境
+    static var environment: Environment {
+        #if DEBUG
+        return .development
+        #else
+        return .production
+        #endif
+    }
+
+    /// 環境の種類
+    enum Environment: String {
+        case development
+        case staging
+        case production
+
+        var isDebug: Bool {
+            self == .development
+        }
+    }
+
+    // MARK: - Supabase設定
+
+    /// Supabase設定
+    enum Supabase {
+        /// Supabase URL
+        static var url: String {
+            // Info.plist または環境変数から読み込み
+            guard let url = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String,
+                  !url.isEmpty else {
+                fatalError("SUPABASE_URL is not set in Info.plist")
+            }
+            return url
+        }
+
+        /// Supabase Anonymous Key
+        static var anonKey: String {
+            guard let key = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String,
+                  !key.isEmpty else {
+                fatalError("SUPABASE_ANON_KEY is not set in Info.plist")
+            }
+            return key
+        }
+    }
+
+    // MARK: - RevenueCat設定
+
+    /// RevenueCat設定
+    enum RevenueCat {
+        /// API Key
+        static var apiKey: String {
+            Bundle.main.infoDictionary?["REVENUECAT_API_KEY"] as? String ?? ""
+        }
+
+        /// 商品ID
+        enum Products {
+            static let monthlyPremium = "{{BUNDLE_ID}}.premium.monthly"
+            static let yearlyPremium = "{{BUNDLE_ID}}.premium.yearly"
+        }
+
+        /// エンタイトルメント
+        enum Entitlements {
+            static let premium = "premium"
+        }
+    }
+
+    // MARK: - 制限値
+
+    /// 制限値
+    enum Limits {
+        /// 無料プラン
+        enum Free {
+            // {{FREE_PLAN_LIMITS}}
+            static let maxItems = 10
+        }
+
+        /// プレミアムプラン
+        enum Premium {
+            // {{PREMIUM_PLAN_LIMITS}}
+            static let maxItems = Int.max // 無制限
+        }
+
+        /// 共通制限
+        static let maxDisplayNameLength = 20
+        static let maxMemoLength = 500
+    }
+
+    // MARK: - 価格設定
+
+    /// 価格設定
+    enum Pricing {
+        /// 月額プレミアム（円）
+        static let monthlyPremium = 380
+
+        /// 年額プレミアム（円）
+        static let yearlyPremium = 2980
+    }
+
+    // MARK: - ストレージキー
+
+    /// UserDefaultsキー
+    enum StorageKeys {
+        static let hasCompletedOnboarding = "hasCompletedOnboarding"
+        static let colorScheme = "colorScheme"
+        static let notificationSettings = "notificationSettings"
+        static let lastSyncTime = "lastSyncTime"
+        // {{ADDITIONAL_STORAGE_KEYS}}
+    }
+
+    // MARK: - 通知設定
+
+    /// 通知設定デフォルト値
+    enum DefaultNotificationSettings {
+        static let enabled = true
+        static let reminderHour = 21
+        static let reminderMinute = 0
+    }
+
+    // MARK: - URL
+
+    /// 各種URL
+    enum URLs {
+        static let privacyPolicy = URL(string: "https://{{DOMAIN}}/privacy")!
+        static let termsOfService = URL(string: "https://{{DOMAIN}}/terms")!
+        static let support = URL(string: "https://{{DOMAIN}}/support")!
+        static let appStore = URL(string: "https://apps.apple.com/app/{{APP_NAME_EN}}/id{{APP_STORE_ID}}")!
+    }
+
+    // MARK: - タイムゾーン
+
+    /// デフォルトタイムゾーン
+    static let defaultTimeZone = TimeZone(identifier: "Asia/Tokyo")!
+
+    // MARK: - 機能フラグ
+
+    /// 機能フラグ
+    enum Features {
+        /// プレミアム機能が有効か
+        static var premiumEnabled: Bool {
+            #if DEBUG
+            return true
+            #else
+            return true
+            #endif
+        }
+
+        /// プッシュ通知が有効か
+        static var pushNotificationsEnabled: Bool {
+            return true
+        }
+
+        /// 分析が有効か
+        static var analyticsEnabled: Bool {
+            #if DEBUG
+            return false
+            #else
+            return true
+            #endif
+        }
+    }
+}
+
+// MARK: - Info.plist設定例
+
+/*
+Info.plistに以下を追加:
+
+<key>SUPABASE_URL</key>
+<string>$(SUPABASE_URL)</string>
+
+<key>SUPABASE_ANON_KEY</key>
+<string>$(SUPABASE_ANON_KEY)</string>
+
+<key>REVENUECAT_API_KEY</key>
+<string>$(REVENUECAT_API_KEY)</string>
+
+そして、xcconfig ファイルで環境変数を設定:
+
+// Development.xcconfig
+SUPABASE_URL = https://xxxxx.supabase.co
+SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+REVENUECAT_API_KEY = appl_xxxxx
+
+// Production.xcconfig
+SUPABASE_URL = https://xxxxx.supabase.co
+SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+REVENUECAT_API_KEY = appl_xxxxx
+*/
