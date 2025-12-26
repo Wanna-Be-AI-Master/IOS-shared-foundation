@@ -14,6 +14,17 @@ public enum AppLimits {
         case premium = "プレミアム"
     }
 
+    // MARK: - Premium Pricing
+
+    /// プレミアム価格（円）
+    public enum Premium {
+        /// 月額料金
+        public static let monthlyPrice: Int = 280
+
+        /// 年額料金
+        public static let yearlyPrice: Int = 2200
+    }
+
     // MARK: - Storage Limits
 
     /// ストレージ制限
@@ -52,6 +63,9 @@ public enum AppLimits {
 
         /// 履歴保持期間（プレミアム・日数）
         public static let historyRetentionPremium: Int = .max
+
+        /// ストリークリセット時間（午前4時）
+        public static let streakResetHour: Int = 4
 
         /// ティアに応じた1日の記録上限を取得
         public static func dailyLimit(for tier: Tier) -> Int {
@@ -177,7 +191,7 @@ public enum AppLimits {
     /// 通知制限
     public enum Notification {
         /// デフォルト通知時間（時）
-        public static let defaultHour: Int = 20
+        public static let defaultHour: Int = 21
 
         /// デフォルト通知時間（分）
         public static let defaultMinute: Int = 0
@@ -215,6 +229,20 @@ public enum AppLimits {
 
         /// キャッシュの有効期限（秒）
         public static let expiration: TimeInterval = 86400 * 7 // 7日
+    }
+
+    // MARK: - Validation Limits
+
+    /// バリデーション制限
+    public enum Validation {
+        /// 表示名の最小文字数
+        public static let displayNameMinLength: Int = 1
+
+        /// 表示名の最大文字数
+        public static let displayNameMaxLength: Int = 50
+
+        /// メモの最大文字数
+        public static let memoMaxLength: Int = 500
     }
 }
 
