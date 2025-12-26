@@ -16,18 +16,13 @@ let package = Package(
             targets: ["SharedFoundation"]
         ),
     ],
-    dependencies: [
-        // Supabase Swift SDK
-        .package(url: "https://github.com/supabase/supabase-swift.git", from: "2.0.0"),
-    ],
+    dependencies: [],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "SharedFoundation",
-            dependencies: [
-                .product(name: "Supabase", package: "supabase-swift"),
-            ],
+            dependencies: [],
             path: "Sources/SharedFoundation"
         ),
         .testTarget(

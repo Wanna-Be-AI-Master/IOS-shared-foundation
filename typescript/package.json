@@ -1,0 +1,33 @@
+{
+  "name": "@anthropic/shared-foundation",
+  "version": "1.0.0",
+  "description": "Shared foundation for koukan-nikki-app and katazuke-app",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "shared",
+    "foundation",
+    "types",
+    "utils"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "~5.6.0"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  },
+  "peerDependencies": {
+    "date-fns": "^4.0.0"
+  }
+}

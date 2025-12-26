@@ -1,5 +1,4 @@
 import Foundation
-import Supabase
 
 // MARK: - AppError
 
@@ -208,7 +207,7 @@ public enum AppError: LocalizedError, Equatable, Sendable {
 
 extension AppError {
 
-    /// Supabaseエラーから変換
+    /// エラーから変換
     public static func from(_ error: Error) -> AppError {
         // URLError
         if let urlError = error as? URLError {
@@ -219,16 +218,6 @@ extension AppError {
                 return .timeout
             default:
                 return .serverError(statusCode: urlError.errorCode, message: urlError.localizedDescription)
-            }
-        }
-
-        // Supabase AuthError
-        if let authError = error as? AuthError {
-            switch authError {
-            case .sessionNotFound:
-                return .sessionExpired
-            default:
-                return .appleSignInFailed(reason: authError.localizedDescription)
             }
         }
 

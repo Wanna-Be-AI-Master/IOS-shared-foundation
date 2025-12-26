@@ -107,7 +107,7 @@ public struct User: BaseEntity, SyncableEntity {
 
 // MARK: - UserDTO
 
-/// ユーザーDTO（Supabase用）
+/// ユーザーDTO（API通信用）
 public struct UserDTO: Codable, Sendable {
 
     // MARK: - CodingKeys
