@@ -74,36 +74,39 @@ public enum DesignTokens {
         // MARK: - Badge Rarity Colors
 
         /// バッジレアリティ: コモン
-        public static let badgeCommon = Color(hex: "#9E9E9E")
+        public static let badgeCommon = Color(hex: "#9CA3AF")
+
+        /// バッジレアリティ: アンコモン
+        public static let badgeUncommon = Color(hex: "#10B981")
 
         /// バッジレアリティ: レア
-        public static let badgeRare = Color(hex: "#2196F3")
+        public static let badgeRare = Color(hex: "#3B82F6")
 
         /// バッジレアリティ: エピック
-        public static let badgeEpic = Color(hex: "#9C27B0")
+        public static let badgeEpic = Color(hex: "#8B5CF6")
 
         /// バッジレアリティ: レジェンダリー
-        public static let badgeLegendary = Color(hex: "#FF9800")
+        public static let badgeLegendary = Color(hex: "#F59E0B")
 
         // MARK: - Category Colors (Karoyaka)
 
         /// カテゴリ: 衣類
-        public static let categoryClothing = Color(hex: "#E91E63")
+        public static let categoryClothing = Color(hex: "#FF6B6B")
 
         /// カテゴリ: 書類
-        public static let categoryDocuments = Color(hex: "#3F51B5")
+        public static let categoryDocuments = Color(hex: "#FFEAA7")
 
         /// カテゴリ: 雑貨
-        public static let categoryMiscellaneous = Color(hex: "#009688")
+        public static let categoryMiscellaneous = Color(hex: "#45B7D1")
 
         /// カテゴリ: 電子機器
-        public static let categoryElectronics = Color(hex: "#607D8B")
+        public static let categoryElectronics = Color(hex: "#96CEB4")
 
         /// カテゴリ: 本
-        public static let categoryBooks = Color(hex: "#795548")
+        public static let categoryBooks = Color(hex: "#4ECDC4")
 
         /// カテゴリ: その他
-        public static let categoryOther = Color(hex: "#9E9E9E")
+        public static let categoryOther = Color(hex: "#DFE6E9")
 
         // MARK: - Gradient
 
